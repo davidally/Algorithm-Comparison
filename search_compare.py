@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 """Week 4 - Assignment 4"""
 
-
-from timeit import Timer
+from timeit import default_timer as timer
+import random
 
 
 def sequential_search(a_list, item):
+    start = timer()
     pos = 0
     found = False
 
@@ -15,11 +16,13 @@ def sequential_search(a_list, item):
             found = True
         else:
             pos = pos + 1
+    end = timer()
 
-    return found
+    return found, (end - start)
 
 
 def ordered_sequential_search(a_list, item):
+    start = timer()
     pos = 0
     found = False
     stop = False
@@ -32,11 +35,13 @@ def ordered_sequential_search(a_list, item):
                 stop = True
             else:
                 pos = pos+1
+    end = timer()
 
-    return found
+    return found, (end - start)
 
 
 def binary_search_iterative(a_list, item):
+    start = timer()
     first = 0
     last = len(a_list) - 1
     found = False
@@ -50,20 +55,78 @@ def binary_search_iterative(a_list, item):
                 last = midpoint - 1
             else:
                 first = midpoint + 1
+    end = timer()
 
-    return found
+    return found, (end - start)
 
 
 def binary_search_recursive(a_list, item):
+    start = timer()
     if len(a_list) == 0:
-        return False
+        end = timer()
+        return False, (end - start)
     else:
         midpoint = len(a_list) // 2
-
     if a_list[midpoint] == item:
-        return True
+        end = timer()
+        return True, (end - start)
     else:
         if item < a_list[midpoint]:
             return binary_search_recursive(a_list[:midpoint], item)
         else:
             return binary_search_recursive(a_list[midpoint + 1:], item)
+
+
+def random_int_list(n):
+    new_list = range(n)
+    random.shuffle(new_list)
+    return new_list
+
+
+def check_averages(test_input):
+
+    # Initializing variables
+    sequential_avg = 0
+    ord_sequential_avg = 0
+    bin_iter_avg = 0
+    bin_rec_avg = 0
+
+    # Running each search method on each list sequentially
+    for random_list in test_input:
+        sequential_avg += (sequential_search(random_list, -1))[1]
+        # Sorting list since other algorithms depend on a sorted array
+        random_list.sort()
+        ord_sequential_avg += (ordered_sequential_search(random_list, -1))[1]
+        bin_iter_avg += (binary_search_iterative(random_list, -1))[1]
+        bin_rec_avg += (binary_search_recursive(random_list, -1))[1]
+
+    print '''
+    Sequential Search took {:.7f} seconds to run, on average.
+    Ordered Sequential Search took {:.7f} seconds to run, on average.
+    Iterative Binary Search took {:.7f} seconds to run, on average.
+    Recursive Binary Search took {:.7f} seconds to run, on average.
+    '''.format(
+        (sequential_avg / len(test_input)),
+        (ord_sequential_avg / len(test_input)),
+        (bin_iter_avg / len(test_input)),
+        (bin_rec_avg / len(test_input))
+    )
+
+
+def main():
+
+    # Generating various test inputs
+    test_input_a = [random_int_list(500) for _ in range(100)]
+    test_input_b = [random_int_list(1000) for _ in range(100)]
+    test_input_c = [random_int_list(10000) for _ in range(100)]
+
+    print 'Input A, Size of Lists: 500'
+    check_averages(test_input_a)
+    print 'Input B, Size of Lists: 1,000'
+    check_averages(test_input_b)
+    print 'Input C, Size of Lists: 10,000'
+    check_averages(test_input_c)
+
+
+if __name__ == '__main__':
+    main()
