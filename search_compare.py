@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-"""Week 4 - Assignment 4"""
+"""Week 4 - Search Comparison"""
 
 from timeit import default_timer as timer
 import random
@@ -83,7 +83,7 @@ def random_int_list(n):
     return new_list
 
 
-def check_averages(test_input):
+def check_search_averages(test_input):
 
     # Initializing variables
     sequential_avg = 0
@@ -121,11 +121,11 @@ def main():
     test_input_c = [random_int_list(10000) for _ in range(100)]
 
     print 'Input A, Size of Lists: 500'
-    check_averages(test_input_a)
+    check_search_averages(test_input_a)
     print 'Input B, Size of Lists: 1,000'
-    check_averages(test_input_b)
+    check_search_averages(test_input_b)
     print 'Input C, Size of Lists: 10,000'
-    check_averages(test_input_c)
+    check_search_averages(test_input_c)
 
 
 if __name__ == '__main__':
