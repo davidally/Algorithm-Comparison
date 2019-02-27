@@ -7,6 +7,16 @@ import random
 
 
 def sequential_search(a_list, item):
+    """Performs a linear search on a list.
+
+    Args:
+        a_list (list): A list of random integers.
+        item (int): The item to be searched for.
+
+    Returns:
+        bool: Returns True if the item is found, False if not.
+    """
+
     start = timer()
     pos = 0
     found = False
@@ -22,6 +32,16 @@ def sequential_search(a_list, item):
 
 
 def ordered_sequential_search(a_list, item):
+    """Performs a linear search on an ordered list.
+
+    Args:
+        a_list (list): A list of random integers.
+        item (int): Item to be searched for.
+
+    Returns:
+        bool: Returns True if the item is found, False if not.
+    """
+
     start = timer()
     pos = 0
     found = False
@@ -41,6 +61,16 @@ def ordered_sequential_search(a_list, item):
 
 
 def binary_search_iterative(a_list, item):
+    """Performs a binary search on an ordered list.
+
+    Args:
+        a_list (list): A list of random integers.
+        item (int): Item to be searched for.
+
+    Returns:
+        bool: Returns True if the item is found, False if not.
+    """
+
     start = timer()
     first = 0
     last = len(a_list) - 1
@@ -61,6 +91,16 @@ def binary_search_iterative(a_list, item):
 
 
 def binary_search_recursive(a_list, item):
+    """Performs a recursive binary search on an ordered list.
+
+    Args:
+        a_list (list): A list of random integers.
+        item (int): The item to be searched for.
+
+    Returns:
+        bool: Returns True if the item is found, False if not.
+    """
+
     start = timer()
     if len(a_list) == 0:
         end = timer()
@@ -78,12 +118,28 @@ def binary_search_recursive(a_list, item):
 
 
 def random_int_list(n):
+    """Generates a list of random integers.
+
+    Args:
+        n (int): Number of elements to generate.
+
+    Returns:
+        list: Returns a list of random integers. 
+    """
+
     new_list = range(n)
     random.shuffle(new_list)
     return new_list
 
 
 def check_search_averages(test_input):
+    """This will check the average running times of the search
+    algorithms on a set of input data. Will then ouput a formatted
+    string stating the average run times for each algorithm. 
+
+    Args:
+        test_input (list): A list of lists. 
+    """
 
     # Initializing variables
     sequential_avg = 0
@@ -114,6 +170,11 @@ def check_search_averages(test_input):
 
 
 def main():
+    """This program will generate thousands of lists of random
+    integers and run a search algorithm on each of them. The 
+    average run time of the algorithms will be displayed to the
+    user. 
+    """
 
     # Generating various test inputs
     test_input_a = [random_int_list(500) for _ in range(100)]

@@ -7,6 +7,15 @@ import random
 
 
 def insertion_sort(a_list):
+    """Performs an insertion sort on a list of integers.
+
+    Args:
+        a_list (list): A list of random integers.
+
+    Returns:
+        float: The run time of the search. 
+    """
+
     start = timer()
     for index in range(1, len(a_list)):
         current_value = a_list[index]
@@ -20,6 +29,14 @@ def insertion_sort(a_list):
 
 
 def shell_sort(a_list):
+    """Performs a shell sort on a list of integers.
+
+    Args:
+        a_list (list): A list of random integers.
+
+    Returns:
+        float: The run time of the search. 
+    """
     start = timer()
     sublist_count = len(a_list) // 2
     while sublist_count > 0:
@@ -41,6 +58,14 @@ def gap_insertion_sort(a_list, start, gap):
 
 
 def python_sort(a_list):
+    """Performs a built-in Python sort on a list of integers.
+
+    Args:
+        a_list (list): A list of random integers.
+
+    Returns:
+        float: The run time of the search. 
+    """
     start = timer()
     a_list.sort()
     end = timer()
@@ -48,22 +73,41 @@ def python_sort(a_list):
 
 
 def random_int_list(n):
+    """Generates a list of random integers.
+
+    Args:
+        n (int): Number of elements to generate.
+
+    Returns:
+        list: Returns a list of random integers. 
+    """
     new_list = range(n)
     random.shuffle(new_list)
     return new_list
 
 
 def check_sort_averages(test_input):
+    """This will check the average running times of the sorting
+    algorithms on a set of input data. Will then ouput a formatted
+    string stating the average run times for each algorithm. 
+
+    Args:
+        test_input (list): A list of lists. 
+    """
 
     # Initializing variables
     insertion_avg = 0
     shell_avg = 0
     python_avg = 0
 
-    # Running each search method on each list sequentially
+    # Running each sort method on each list sequentially
     for random_list in test_input:
+        # Only return from the algorithm is the running time
         insertion_avg += insertion_sort(random_list)
+        # Shuffle the integers again to prepare for next sort method
+        random.shuffle(random_list)
         shell_avg += shell_sort(random_list)
+        random.shuffle(random_list)
         python_avg += python_sort(random_list)
 
     print '''
@@ -78,6 +122,11 @@ def check_sort_averages(test_input):
 
 
 def main():
+    """This program will generate thousands of lists of random
+    integers and run a sorting algorithm on each of them. The 
+    average run time of the algorithms will be displayed to the
+    user. 
+    """
 
     # Generating various test inputs
     test_input_a = [random_int_list(500) for _ in range(100)]
